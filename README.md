@@ -31,7 +31,7 @@ Unzip the ZIP-File into the directory `teemann`. Now, rename the folder `pyplane
 The last step of the installation process is to add the app to `apps.py`. To do this, just open the file and add the
 line
 
-```'teemannTest.messages',```
+```'teemann.messages',```
 
 underneath the other apps. Make sure to use the same indentation as in the lines before. After a restart of pyplanet,
 the messages app is ready to be used.
