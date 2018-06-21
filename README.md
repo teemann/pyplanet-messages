@@ -12,7 +12,7 @@ you will need to add it to your manialink though.
 
 ## Installation
 To install this app, you can either download a ZIP-File of this repository or you can also clone the repository.
-It is recommended to create a directory `teemann` next to `manage.py`. Next, enter the just created directory.
+It is recommended to create a directory `teemannTest` next to `manage.py`. Next, enter the just created directory.
 Now you can choose between the two installation methods. It is recommended to use `Git clone`, since it makes
 updating a lot easier (just a simple `git pull`).
 
@@ -25,13 +25,13 @@ Rename the directory from `pyplanet-messages` to `messages`.
 
 #### ZIP-File
 Download the ZIP-File of this repository from [here](https://github.com/teemann/pyplanet-messages/archive/master.zip).
-Unzip the ZIP-File into the directory `teemann`. Now, rename the folder `pyplanet-messages-master` to `messages`.
+Unzip the ZIP-File into the directory `teemannTest`. Now, rename the folder `pyplanet-messages-master` to `messages`.
 
 #### apps.py
 The last step of the installation process is to add the app to `apps.py`. To do this, just open the file and add the
 line
 
-```'teemann.messages',```
+```'teemannTest.messages',```
 
 underneath the other apps. Make sure to use the same indentation as in the lines before. After a restart of pyplanet,
 the messages app is ready to be used.
