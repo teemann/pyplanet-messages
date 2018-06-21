@@ -1,0 +1,71 @@
+declare Quad_Prev <=> (Page.GetFirstChild("messages_type_prev") as CMlQuad);
+declare Quad_Next <=> (Page.GetFirstChild("messages_type_next") as CMlQuad);
+declare Quad_Aspect <=> (Page.GetFirstChild("messages_aspect") as CMlQuad);
+declare Entry_Type <=> (Page.GetFirstChild("messages_type_value") as CMlEntry);
+declare Entry_Aspect <=> (Page.GetFirstChild("messages_aspect_value") as CMlEntry);
+declare Label_Type <=> (Page.GetFirstChild("messages_type_label") as CMlLabel);
+declare Frame_Link <=> (Page.GetFirstChild("messages_frame_link") as CMlFrame);
+declare Frame_Size <=> (Page.GetFirstChild("messages_frame_size") as CMlFrame);
+declare Text[] ValidTypes = ["Text", "Image", "XML"];
+declare Integer TypeId = {{ type_id }};
+
+Label_Type.SetText(ValidTypes[TypeId]);
+Entry_Type.SetText(ValidTypes[TypeId], False);
+if (TypeId == 2) {
+  Frame_Link.Hide();
+} else {
+  Frame_Link.Show();
+}
+if (TypeId == 1) {
+  Frame_Size.Show();
+} else {
+  Frame_Size.Hide();
+}
+
+while(True) {
+  foreach (Event in PendingEvents) {
+    if (Event.Type == CMlScriptEvent::Type::MouseClick && Event.ControlId == "messages_type_prev") {
+      TypeId = (TypeId - 1) % ValidTypes.count;
+      if (TypeId < 0) {
+        TypeId = ValidTypes.count - 1;
+      }
+      Label_Type.SetText(ValidTypes[TypeId]);
+      Entry_Type.SetText(ValidTypes[TypeId], False);
+      if (TypeId == 2) {
+        Frame_Link.Hide();
+      } else {
+        Frame_Link.Show();
+      }
+      if (TypeId == 1) {
+        Frame_Size.Show();
+      } else {
+        Frame_Size.Hide();
+      }
+    }
+    if (Event.Type == CMlScriptEvent::Type::MouseClick && Event.ControlId == "messages_type_next") {
+      TypeId = (TypeId + 1) % ValidTypes.count;
+      Label_Type.SetText(ValidTypes[TypeId]);
+      Entry_Type.SetText(ValidTypes[TypeId], False);
+      if (TypeId == 2) {
+        Frame_Link.Hide();
+      } else {
+        Frame_Link.Show();
+      }
+      if (TypeId == 1) {
+        Frame_Size.Show();
+      } else {
+        Frame_Size.Hide();
+      }
+    }
+    if (Event.Type == CMlScriptEvent::Type::MouseClick && Event.ControlId == "messages_aspect") {
+        if (Quad_Aspect.StyleSelected) {
+            Quad_Aspect.StyleSelected = False;
+            Entry_Aspect.SetText("0", True);
+        } else {
+            Quad_Aspect.StyleSelected = True;
+            Entry_Aspect.SetText("1", True);
+        }
+    }
+  }
+  yield;
+}

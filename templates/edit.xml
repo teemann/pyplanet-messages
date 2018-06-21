@@ -1,0 +1,51 @@
+<frame pos="0 60" z-index="100">
+	<quad pos="0 0" size="120 110" style="Bgs1InRace" substyle="BgCardList" halign="center" valign="top"/>
+	<frame z-index="1">
+		<quad pos="0 -1" size="118 11" style="Bgs1" substyle="BgCardList" halign="center" valign="top"/>
+		<label pos="0 -6.5" z-index="1" size="118 11" text="{{ dlg_type }} message" valign="center2" halign="center" textemboss="1" textsize="5" textfont="RajdhaniMono"/>
+	</frame>
+	<frame pos="0 -15" z-index="1">
+		<quad pos="0 0" size="118 94" style="Bgs1" substyle="BgCardList" halign="center" valign="top"/>
+		<frame z-index="1" pos="-56 -3">
+			<label pos="0 0" size="20 5" text="Name:" textcolor="FFF" textfont="RajdhaniMono"/>
+			<entry pos="25 0" z-index="0" size="88 5" selecttext="1" scriptevents="1" id="messages_name" name="messages_name" textfont="RajdhaniMono" default="{{ name }}"/>
+			<label pos="0 -9" z-index="0" size="20 5" text="Position:" textfont="RajdhaniMono"/>
+			<frame pos="25 -9">
+				<label pos="0 0" z-index="0" size="6 5" text="X=" textfont="RajdhaniMono"/>
+				<entry pos="6 0" z-index="0" size="10 5" textfont="RajdhaniMono" selecttext="1" scriptevents="1" id="messages_pos_x" name="messages_pos_x" default="{{ posx }}"/>
+				<label pos="17 0" z-index="0" size="6 5" text="Y=" textfont="RajdhaniMono"/>
+				<entry pos="23 0" z-index="0" size="10 5" textfont="RajdhaniMono" selecttext="1" scriptevents="1" id="messages_pos_y" name="messages_pos_y" default="{{ posy }}"/>
+				<label pos="34 0" z-index="0" size="6 5" text="Z=" textfont="RajdhaniMono"/>
+				<entry pos="40 0" z-index="0" size="10 5" textfont="RajdhaniMono" selecttext="1" scriptevents="1" id="messages_pos_z" name="messages_pos_z" default="{{ posz }}"/>
+			</frame>
+			<label pos="0 -18" z-index="0" size="20 5" text="Value:" textfont="RajdhaniMono"/>
+			<textedit pos="25 -18" z-index="0" size="88 35"  scriptevents="1" id="messages_value" textfont="RajdhaniMono" name="messages_value" default="{{ value }}"/>
+			<label pos="0 -58" z-index="0" size="20 5" text="Type:" textfont="RajdhaniMono"/>
+			<frame pos="25 -58">
+				<label pos="20.5 0" z-index="0" size="29 5" text="Text" halign="center" textfont="RajdhaniMono" id="messages_type_label"/>
+				<entry pos="0 0" z-index="0" size="22.5 5" default="Text" hidden="1" id="messages_type_value" name="messages_type_value" scriptevents="1"/>
+				<quad pos="0 0.75" z-index="0" size="6 6" bgcolor="FFFA" style="Icons64x64_1" substyle="ArrowPrev" scriptevents="1" id="messages_type_prev"/>
+				<quad pos="35 0.75" z-index="0" size="6 6" bgcolor="FFFA" style="Icons64x64_1" substyle="ArrowNext" scriptevents="1" id="messages_type_next"/>
+			</frame>
+			<frame pos="0 -66" id="messages_frame_link">
+				<label pos="0 0" z-index="0" size="20 5" text="Link:" textfont="RajdhaniMono"/>
+				<entry pos="25 0" z-index="0" size="88 5" textfont="RajdhaniMono" id="messages_link" name="messages_link" default="{{ link }}"/>
+			</frame>
+            <frame pos="0 -74" id="messages_frame_size">
+				<label pos="0 0" z-index="0" size="20 5" text="Size:" textfont="RajdhaniMono"/>
+				<label pos="25 0" z-index="0" size="6 5" text="W=" textfont="RajdhaniMono"/>
+				<entry pos="31 0" z-index="0" size="10 5" textfont="RajdhaniMono" selecttext="1" scriptevents="1" id="messages_size_w" name="messages_size_w" default="{{ wid }}"/>
+				<label pos="42 0" z-index="0" size="6 5" text="H=" textfont="RajdhaniMono"/>
+				<entry pos="48 0" z-index="0" size="10 5" textfont="RajdhaniMono" selecttext="1" scriptevents="1" id="messages_size_h" name="messages_size_h" default="{{ hei }}"/>
+                <label pos="59 0" z-index="0" size="37 5" text="Keep aspect ratio" textfont="RajdhaniMono"/>
+                <quad pos="95 0.75" z-index="0" size="6 6" bgcolor="FFFA" style="Icons64x64_1" substyle="Check" scriptevents="1" id="messages_aspect" styleselected="{{ aspect }}"/>
+                <entry hidden="1" id="messages_aspect_value" default="{{ aspect }}" name="messages_aspect_value" scriptevents="1" />
+			</frame>
+		</frame>
+		<label pos="22 -85" z-index="1" size="38 5" text="OK" style="CardButtonMedium" textcolor="FFF" scriptevents="1" id="messages_bt_ok" action="{{ id }}__ok"/>
+		<label pos="-15 -85" z-index="1" size="38 5" text="Cancel" style="CardButtonMedium" textcolor="FFF" scriptevents="1" id="messages_bt_cancel" action="{{ id }}__cancel"/>
+	</frame>
+</frame>
+<script>
+<!-- {% include 'messages/edit.Script.Txt' %} -->
+</script>

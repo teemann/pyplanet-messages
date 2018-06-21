@@ -1,0 +1,7 @@
+<frame>
+    {% for ml in manialinks %}
+        <frame>
+            {{ ml|safe }}
+        </frame>
+    {% endfor %}
+</frame>
