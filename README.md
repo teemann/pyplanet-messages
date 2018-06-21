@@ -10,6 +10,33 @@ At some point, support for periodic chat messages will be added.
 Text and Images can also link to a website (e.g. Discord link). Of course, custom manialinks also support this feature,
 you will need to add it to your manialink though.
 
+## Installation
+To install this app, you can either download a ZIP-File of this repository or you can also clone the repository.
+It is recommended to create a directory `teemann` next to `manage.py`. Next, enter the just created directory.
+Now you can choose between the two installation methods. It is recommended to use `Git clone`, since it makes
+updating a lot easier (just a simple `git pull`).
+
+#### Git clone
+Then, in this directory, run
+
+```git clone https://github.com/teemann/pyplanet-messages.git```
+
+Rename the directory from `pyplanet-messages` to `messages`.
+
+#### ZIP-File
+Download the ZIP-File of this repository from [here](https://github.com/teemann/pyplanet-messages/archive/master.zip).
+Unzip the ZIP-File into the directory `teemann`. Now, rename the folder `pyplanet-messages-master` to `messages`.
+
+#### apps.py
+The last step of the installation process is to add the app to `apps.py`. To do this, just open the file and add the
+line
+
+```'teemannTest.messages',```
+
+underneath the other apps. Make sure to use the same indentation as in the lines before. After a restart of pyplanet,
+the messages app is ready to be used.
+
+
 ## Configuration
 To access the messages dialog, type `//messages` in the chat (only admin). You will then see a dialog similar
 to this:
