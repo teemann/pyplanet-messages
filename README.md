@@ -4,8 +4,9 @@ in the form of
  * Text (formatted using $...)
  * Images
  * Custom partial manialinks
+ * Periodic chat messages
  
-At some point, support for periodic chat messages will be added.
+~~At some point, support for periodic chat messages will be added.~~ Done
  
 Text and Images can also link to a website (e.g. Discord link). Of course, custom manialinks also support this feature,
 you will need to add it to your manialink though.
@@ -80,13 +81,15 @@ the Z-Order of messages only.*
 #### Value
 This is the value of the message. If the type is `Text`, this is the text that will be shown. Multiple lines are
 supported. Formatting is also supported. If the type is `Image`, this is a URL to an Image that should be shown.
-If the type is `XML`, this is a manialink. Internally this will then be wrapped by `<frame></frame>`.
+If the type is `XML`, this is a manialink. Internally this will then be wrapped by `<frame></frame>`. If the type
+is `Chat`, value specifies a text that will be sent in the chat periodically.
 
 #### Type
 This can be
  * Text
  * Image
  * XML
+ * Chat
  
 See [Value](#value) for an explanation.  
 *__Note:__ When using `Image` you might have to rejoin the server to see the image.*
@@ -105,6 +108,17 @@ This option is only shown and used if the selected type is `Image`.
 
 Here you can specify the preferred size of the image (in manialink units, so 320x180 equals the size of the screen).  
 The option `Keep aspect ratio` can be disabled, so the image will be distorted if the wrong dimensions are used.
+
+### Periodic chat messages
+When there are multiple messages with the type `Chat`, these will be sent in the chat one after another.
+The waiting time between messages is always the same. Once the last message was sent, it starts over with
+the first one again. There is no way of specifying the order in which the chat messages will be sent. Theoretically,
+the order might even change between restarts of pyplanet.
+
+#### Configuring the interval
+To configure the interval in which the chat messages should be sent, change the setting `Messages interval`.
+This can be found in the normal pyplanet settings (`//settings`). This app will wait the configured time between
+sending the messages.
 
 
 [img1]: https://teemann.github.io/images/messages/msg1.png?
