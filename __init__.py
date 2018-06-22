@@ -137,11 +137,11 @@ class Messages(AppConfig):
     async def interval_changed(self, *args, **kwargs):
         if self.msg_loop_task is not None:
             self.msg_loop_task.cancel()
-        print('Restarted')
+        # print('Restarted')
         self.msg_loop_task = asyncio.ensure_future(self.handle_messages(), loop=self.loop)
 
     async def handle_messages(self):
-        print('Started async')
+        # print('Started async')
         try:
             while True:
                 interval = await self.msg_interval_setting.get_value()
@@ -155,4 +155,4 @@ class Messages(AppConfig):
                 finally:
                     self.lock.release()
         except asyncio.CancelledError:
-            await self.instance.chat('CancelledError')
+            pass
