@@ -6,15 +6,16 @@ declare Entry_Aspect <=> (Page.GetFirstChild("messages_aspect_value") as CMlEntr
 declare Label_Type <=> (Page.GetFirstChild("messages_type_label") as CMlLabel);
 declare Frame_Link <=> (Page.GetFirstChild("messages_frame_link") as CMlFrame);
 declare Frame_Size <=> (Page.GetFirstChild("messages_frame_size") as CMlFrame);
-declare Text[] ValidTypes = ["Text", "Image", "XML"];
+declare Frame_NonChat <=> (Page.GetFirstChild("messages_non_chat_wrapper") as CMlFrame);
+declare Text[] ValidTypes = ["Text", "Image", "XML", "Chat"];
 declare Integer TypeId = {{ type_id }};
 
 Label_Type.SetText(ValidTypes[TypeId]);
-Entry_Type.SetText(ValidTypes[TypeId], False);
-if (TypeId == 2) {
-  Frame_Link.Hide();
+Entry_Type.SetText("" ^ TypeId, False);
+if (TypeId == 2 || TypeId == 3) {
+  Frame_NonChat.Hide();
 } else {
-  Frame_Link.Show();
+  Frame_NonChat.Show();
 }
 if (TypeId == 1) {
   Frame_Size.Show();
@@ -30,11 +31,11 @@ while(True) {
         TypeId = ValidTypes.count - 1;
       }
       Label_Type.SetText(ValidTypes[TypeId]);
-      Entry_Type.SetText(ValidTypes[TypeId], False);
-      if (TypeId == 2) {
-        Frame_Link.Hide();
+      Entry_Type.SetText("" ^ TypeId, False);
+      if (TypeId == 2 || TypeId == 3) {
+        Frame_NonChat.Hide();
       } else {
-        Frame_Link.Show();
+        Frame_NonChat.Show();
       }
       if (TypeId == 1) {
         Frame_Size.Show();
@@ -45,11 +46,11 @@ while(True) {
     if (Event.Type == CMlScriptEvent::Type::MouseClick && Event.ControlId == "messages_type_next") {
       TypeId = (TypeId + 1) % ValidTypes.count;
       Label_Type.SetText(ValidTypes[TypeId]);
-      Entry_Type.SetText(ValidTypes[TypeId], False);
-      if (TypeId == 2) {
-        Frame_Link.Hide();
+      Entry_Type.SetText("" ^ TypeId, False);
+      if (TypeId == 2 || TypeId == 3) {
+        Frame_NonChat.Hide();
       } else {
-        Frame_Link.Show();
+        Frame_NonChat.Show();
       }
       if (TypeId == 1) {
         Frame_Size.Show();

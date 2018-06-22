@@ -1,6 +1,8 @@
 from peewee import *
 from pyplanet.core.db import TimedModel
 import json
+from collections import defaultdict
+import traceback
 
 
 class JsonField(TextField):
@@ -11,15 +13,24 @@ class JsonField(TextField):
         return json.loads(value)
 
 
-class Manialink(TimedModel):
+class Message(TimedModel):
+    _typemap = defaultdict(lambda: -1, {'Text': 0, 'Image': 1, 'XML': 2, 'Chat': 3})
+    _typemap2 = defaultdict(lambda: '', {0: 'Text', 1: 'Image', 2: 'XML', 3: 'Chat'})
+
+    @classmethod
+    def get_type_id(cls, typename):
+        return cls._typemap[typename]
+
+    @classmethod
+    def get_type_name(cls, typeid):
+        return cls._typemap2[typeid]
+
     name = CharField(
         max_length=255,
         null=False,
-        help_text='Name of the manialink'
+        help_text='Name of the message'
     )
 
-    type = TextField(null=False, default=None, help_text='The type of the entry (text, image or xml)')
-
-    show = BooleanField(null=False, default=True, help_text='Specifies if the manialink should be shown or not')
+    type = IntegerField(null=False, help_text='The type of the message (0, 1, 2, 3)')
 
     data = JsonField(null=False)

@@ -1,7 +1,7 @@
 from pyplanet.views.generics import ManualListView
 from pyplanet.views import TemplateView
 from pyplanet.views.generics import ask_confirmation
-from .models import Manialink
+from .models import Message
 
 
 class SettingsView(ManualListView):
@@ -24,7 +24,7 @@ class SettingsView(ManualListView):
     def fill_data(self):
         self.objects_raw.clear()
         for ml in self.app.manialinks:
-            self.objects_raw.append({'name': ml.name, 'type': ml.type, 'data': ml})
+            self.objects_raw.append({'name': ml.name, 'type': Message.get_type_name(ml.type), 'data': ml})
 
     async def show(self):
         await self.display(player=self.player)
@@ -84,6 +84,7 @@ class SettingsView(ManualListView):
 
     async def manialinks_updated(self):
         await self.app.display()
+        await self.app.manialinks_updated()
 
     async def get_actions(self):
         if len(self.objects_raw) == 0:
@@ -126,7 +127,7 @@ class SettingsView(ManualListView):
             manialink.name = name
             await manialink.save()
         else:
-            ml = Manialink(name=name, type=type, data=data)
+            ml = Message(name=name, type=type, data=data)
             await ml.save()
             self.app.manialinks.append(ml)
         self.fill_data()
@@ -136,7 +137,6 @@ class SettingsView(ManualListView):
 
 class NewMessageView(TemplateView):
     template_name = 'messages/edit.xml'
-    types = {'Text': 0, 'Image': 1, 'XML': 2}
 
     def __init__(self, parent, app, *args, manialink=None, **kwargs):
         self.id = 'manialink_newmessage'
@@ -165,7 +165,7 @@ class NewMessageView(TemplateView):
             size = self.manialink.data.get('size', None)
             if size is None:
                 size = ['', '']
-            type_id = NewMessageView.types.get(self.manialink.type, 0)
+            type_id = self.manialink.type
             data.update({
                 'dlg_type': 'Edit',
                 'name': self.manialink.name,
@@ -189,7 +189,7 @@ class NewMessageView(TemplateView):
         await self.hide(player_logins=[player.login])
         pos = [values['messages_pos_x'], values['messages_pos_y'], values['messages_pos_z']]
         data = values.get('messages_value', '')
-        msg_type = values.get('messages_type_value', '')
+        msg_type = int(values.get('messages_type_value', ''))
         link = values.get('messages_link', '')
         size = [values['messages_size_w'], values['messages_size_h']]
         aspect = values['messages_aspect_value']
@@ -209,12 +209,12 @@ class NewMessageView(TemplateView):
 
     def _render(self, type, data, link, pos, size=None, aspect=True):
         # print('"{}"'.format(type))
-        if type == 'Text':
+        if type == 0:
             attrs = 'pos="{} {}" z-index="{}" text="{}" class="distraction-hide"'.format(*pos, data)
             if link is not None and len(link) != 0:
                 attrs += ' url="{}"'.format(link)
             return '<label {}/>'.format(attrs)
-        elif type == 'Image':
+        elif type == 1:
             attrs = 'pos="{} {}" z-index="{}" image="{}" halign="center" valign="center" class="distraction-hide"'\
                 .format(*pos, data)
             if link is not None and len(link) != 0:
@@ -224,7 +224,7 @@ class NewMessageView(TemplateView):
             if aspect:
                 attrs += ' keepratio="Fit"'
             return '<quad {}/>'.format(attrs)
-        elif type == 'XML':
+        elif type == 2:
             return '<frame>{}</frame>'.format(data)
         return ''
 
