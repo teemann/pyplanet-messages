@@ -1,4 +1,4 @@
-<frame pos="0 60" z-index="100">
+<frame pos="0 60" z-index="200">
 	<quad pos="0 0" size="120 110" style="Bgs1InRace" substyle="BgCardList" halign="center" valign="top"/>
 	<frame z-index="1">
 		<quad pos="0 -1" size="118 11" style="Bgs1" substyle="BgCardList" halign="center" valign="top"/>
