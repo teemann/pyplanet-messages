@@ -34,7 +34,7 @@ class Manialink(TimedModel):
 
 class Messages(AppConfig):
     name = 'messages'
-    game_dependencies = ['trackmania', 'shootmania']
+    game_dependencies = ['trackmania', 'shootmania', 'trackmania_next']
     app_dependencies = ['core.maniaplanet']
 
     def __init__(self, *args, **kwargs):
